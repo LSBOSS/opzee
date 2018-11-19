@@ -1,0 +1,49 @@
+{
+  "name": "synthtest",
+  "version": "0.0.0",
+  "description": "Synth",
+  "scripts": {
+    "build": "webpack --watch",
+    "buildOnce": "webpack",
+    "buildProd": "cross-env NODE_ENV=production webpack && node compile-markup.js",
+    "dev": "node dev-server.js",
+    "start": "npm run dev",
+    "lint": "tslint --format stylish --project .",
+    "prettier": "prettier --config node_modules/tslint-lt/.prettierrc.yml --write \"{,!node_modules/}**/*.{ts,tsx}\"",
+    "test": "npm run buildOnce && npm run lint && npm run prettier"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/bundle",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lsboss/synthtest.git"
+  },
+  "author": "lsboss",
+  "license": "All rights reserved.",
+  "dependencies": {
+    "dom-loaded": "^1.0.1",
+    "preact": "^8.3.1",
+    "pug": "^2.0.3",
+    "webaudio": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/dom-loaded": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "dotenv-webpack": "^1.5.7",
+    "express": "^4.16.4",
+    "mini-css-extract-plugin": "^0.4.4",
+    "morgan": "^1.9.1",
+    "node-sass": "^4.10.0",
+    "preact-material-components": "^1.5.4",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.0",
+    "tslint-lt": "^1.7.3",
+    "typescript": "^3.1.6",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
