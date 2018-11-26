@@ -27,9 +27,11 @@ export default class AudioSlider extends Component<IAudioSliderProps, IAudioSlid
     constructor(props: IAudioSliderProps) {
         super(props)
 
-        props.min = props.min || 1
-        props.max = props.max || 100
-        props.initialValue = props.initialValue || 50
+        console.log(`MIN: ${props.min}`)
+
+        props.min = props.min !== undefined ? props.min : 1
+        props.max = props.max !== undefined ? props.max : 100
+        props.initialValue = props.initialValue !== undefined ? props.initialValue : 50
         this.onChange = props.onChange
 
         this.state = {
@@ -39,21 +41,27 @@ export default class AudioSlider extends Component<IAudioSliderProps, IAudioSlid
 
     private onChangeInternal(e: CustomEvent) {
         const value = e.detail.value
-        if (this.onChange)
-            this.onChange(value)
-
-        this.setState({value})
+        if (typeof value === "number") {
+            if (this.onChange)
+                this.onChange(value)
+            this.setState({ value: value })
+        }
     }
 
-    public render(props: IAudioSliderProps, state: IAudioSliderState) {
+    public render({ min, max, initialValue, text }: IAudioSliderProps, { value }: IAudioSliderState) {
         return (
             <div>
                 <LayoutGrid.Inner>
                     <LayoutGrid.Cell cols={2} align="middle">
-                        <Typography caption>{props.text} ({state.value.toFixed(0)})</Typography>
+                        <Typography caption>{text} ({value.toFixed(1)})</Typography>
                     </LayoutGrid.Cell>
                     <LayoutGrid.Cell align="middle">
-                        <Slider min={props.min} max={props.max} value={props.initialValue} onChange={e => this.onChangeInternal(e as CustomEvent)}></Slider>
+                        <Slider
+                            min={min}
+                            max={max}
+                            value={initialValue}
+                            onChange={e => this.onChangeInternal(e as CustomEvent)}>
+                        </Slider>
                     </LayoutGrid.Cell>
                 </LayoutGrid.Inner>
             </div>
