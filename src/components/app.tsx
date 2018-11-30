@@ -12,10 +12,6 @@ import AudioSlider from "./audioslider"
 import { Synth } from "./synth"
 
 export default class App extends Component<{}, {}> {
-  private tau: number = Math.PI * 2
-  private frequency: number = 440
-
-  private masterVolume = 0.15
 
   private synth: Synth = new Synth()
 
@@ -27,11 +23,14 @@ export default class App extends Component<{}, {}> {
     this.synth.stop()
   }
 
+  // <!--<Button raised outlined onClick={() => this.onStopClicked()}>Stop</Button>-->
   public render() {
     return (
       <div>
-        <Button secondary raised outlined onClick={() => this.onPlayClicked()}>Play</Button >
-        <Button raised outlined onClick={() => this.onStopClicked()}>Stop</Button>
+        <Button secondary raised outlined
+          onMouseDown={() => this.onPlayClicked()}
+          onMouseUp={() => this.onStopClicked()}
+          >Play</Button >
         <div>
           <FormField >
             <Radio
